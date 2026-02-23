@@ -1,0 +1,126 @@
+project:
+  name: md_diffusion_reproduction
+  output_root: ./runs
+  experiment: md_diffusion_nx2_sx
+  seed: 42
+  task: seismic_2d_denoise_sr
+
+data:
+  lr_dir: /home/llp/data/Resolution/seismicSuperResolutionData/nx2
+  hr_dir: /home/llp/data/Resolution/seismicSuperResolutionData/sx
+  file_ext: .dat
+  dtype: float32
+  ndim: 2
+  lr_shape: [128, 128]
+  hr_shape: [256, 256]
+  patch_size: [128, 128]
+  patch_stride: [64, 64]
+  split:
+    train: 0.90
+    val: 0.10
+  split_seed: 42
+  normalize:
+    mode: minmax
+    range: [-1.0, 1.0]
+    eps: 1.0e-6
+  augment:
+    random_flip: true
+    random_rotate_90: true
+    flip_prob: 0.5
+    rotate_prob: 0.5
+  num_workers: 4
+  pin_memory: true
+
+degradation:
+  use_paired_lr: true
+  simulate_from_hr: false
+  downsample:
+    scale: 2
+    mode: bicubic
+    antialias: true
+  noise:
+    type: gaussian
+    std_min: 0.00
+    std_max: 0.05
+  upsample_to_hr:
+    modes: [trilinear, nearest]
+    random_choice: true
+
+model:
+  name: unet2d_noise_predictor
+  image_channels: 1
+  in_channels_xt: 1
+  in_channels_cond: 1
+  out_channels: 1
+  base_channels: 64
+  channel_multipliers: [1, 2, 4, 8, 8]
+  num_res_blocks: 2
+  dropout: 0.0
+  use_attention: false
+  norm: groupnorm
+  num_groups: 8
+  upsample_mode: nearest
+  time_embedding_dim: 256
+  cond_injection: concat
+
+diffusion:
+  timesteps: 1000
+  beta_schedule: linear
+  beta_start: 1.0e-4
+  beta_end: 2.0e-2
+  continuous_gamma: true
+  gamma_sample: uniform_between_adjacent_alpha
+  objective: predict_noise
+  loss:
+    type: l1
+    weight: 1.0
+
+train:
+  batch_size: 8
+  max_steps: 400000
+  val_batches: 10
+  grad_accum_steps: 1
+  optimizer:
+    name: adam
+    lr: 1.0e-4
+    betas: [0.9, 0.999]
+    weight_decay: 0.0
+  scheduler:
+    name: cosine
+    warmup_steps: 1000
+    min_lr: 1.0e-6
+  ema:
+    enabled: true
+    decay: 0.9999
+  amp: true
+  grad_clip: 1.0
+  log_every: 50
+  val_every: 2000
+  save_every: 5000
+  resume: null
+
+sampling:
+  method: ddim
+  checkpoint_path: null
+  output_dir: ./runs/samples
+  seed: 123
+  num_files: 16
+  sample_steps: 100
+  step_schedule: logarithmic
+  eta: 0.0
+  clip_denoised: true
+  save_intermediate: false
+
+evaluation:
+  metrics: [psnr, ssim]
+  use_fid_like: false
+  save_dir: ./runs/eval
+  max_items: 32
+  ssim_c1: 1.0e-4
+  ssim_c2: 9.0e-4
+  pred_dir: ./runs/samples
+  pred_suffix: _pred.dat
+
+runtime:
+  device: auto
+  amp_dtype: float16
