@@ -1,5 +1,7 @@
+```
+
 (base) llp@llp:~/data/Resolution/SeismicDiffusion_Resolution/runs$ tree
-.
+
 ├── eval
 │   ├── eval_metrics.json
 │   └── run.log
@@ -26,3 +28,4 @@
     ├── 1989_pred.dat
     ├── metrics.json
     └── run.log
+```
