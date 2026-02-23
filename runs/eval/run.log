@@ -1,0 +1,17 @@
+2026-02-23 10:42:15,668 | INFO | file=0008 mode=patch psnr=27.8337 ssim=0.7631
+2026-02-23 10:42:15,669 | INFO | file=0060 mode=patch psnr=29.8877 ssim=0.9765
+2026-02-23 10:42:15,669 | INFO | file=0240 mode=patch psnr=28.7978 ssim=0.4727
+2026-02-23 10:42:15,670 | INFO | file=0382 mode=patch psnr=31.1773 ssim=0.8718
+2026-02-23 10:42:15,670 | INFO | file=0674 mode=patch psnr=26.4325 ssim=0.9319
+2026-02-23 10:42:15,671 | INFO | file=0681 mode=patch psnr=24.9116 ssim=0.4340
+2026-02-23 10:42:15,672 | INFO | file=0875 mode=patch psnr=28.1749 ssim=0.9123
+2026-02-23 10:42:15,672 | INFO | file=0968 mode=patch psnr=28.3764 ssim=0.6560
+2026-02-23 10:42:15,673 | INFO | file=1086 mode=patch psnr=28.7912 ssim=0.8805
+2026-02-23 10:42:15,673 | INFO | file=1552 mode=patch psnr=27.8351 ssim=0.9123
+2026-02-23 10:42:15,674 | INFO | file=1599 mode=patch psnr=24.7945 ssim=0.9340
+2026-02-23 10:42:15,674 | INFO | file=1642 mode=patch psnr=31.7993 ssim=0.9725
+2026-02-23 10:42:15,675 | INFO | file=1664 mode=patch psnr=28.1780 ssim=0.8058
+2026-02-23 10:42:15,675 | INFO | file=1863 mode=patch psnr=28.0683 ssim=0.8216
+2026-02-23 10:42:15,676 | INFO | file=1971 mode=patch psnr=29.4986 ssim=0.9707
+2026-02-23 10:42:15,677 | INFO | file=1989 mode=patch psnr=24.6784 ssim=0.9132
+2026-02-23 10:42:15,677 | INFO | summary={'psnr': 28.077205657958984, 'ssim': 0.826812282204628}
